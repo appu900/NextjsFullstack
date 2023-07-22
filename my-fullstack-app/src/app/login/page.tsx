@@ -4,18 +4,18 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import axios from 'axios';
 import Lottie from "lottie-react";
-import signUpImage from "../../../public/images/chat.png"
+import signInImage from "../../../public/images/signin.png"
 import Image from "next/image";
 
 
-export default function signupPage(){
+export default function LoginPage(){
     const[user,setUser] = React.useState({
         email:"",
         password:"",
-        username:"",
+        
     })
 
-    const onSignup = async () =>{
+    const onLogin = async () =>{
 
     }
 
@@ -24,17 +24,10 @@ export default function signupPage(){
           <div className="flex flex-col w-[50%] h-full rounded-md px-48  ">
 
             <div className=" w-full text-left font-semibold mt-10 text-xl ">
-              <p><span className="text-indigo-600">Create</span> Your account here</p>
+              <p><span className="text-indigo-600">Login</span> to Your account here</p>
             </div>
 
-            <div className=" w-full text-center mt-5 ">
-              <input type="text"
-               placeholder="username"
-               value={user.username}
-               onChange={(e)=>setUser({...user,username:e.target.value})}
-               className=" outline-none w-full  p-2 border-b-2 border-gray-500 placeholder:text-black placeholder:text-sm" 
-              />
-            </div>
+          
 
             <div className=" flex justify-center mt-5 ">
               <input type="email"
@@ -56,12 +49,12 @@ export default function signupPage(){
 
             <div className="text-center mt-8">
                 <button 
-                onClick={onSignup}
+                onClick={onLogin}
                 className="w-full h-[46px] bg-indigo-600 rounded-md text-white active:scale-95"
-                >Create Account</button>
+                >Login</button>
             </div>
             
-                <Link  href="/login" className="text-left text-sm   mt-6"> Already have account <span className="text-indigo-600">login here</span></Link>
+                <Link  href="/signup" className="text-left text-sm   mt-6"> first tym here <span className="text-indigo-600">signup here</span></Link>
             
             
           </div>  
@@ -73,7 +66,7 @@ export default function signupPage(){
 
             <div>
               <Image
-               src={signUpImage}
+               src={signInImage }
                width={600}
                height={600}
                alt="this is a image"
