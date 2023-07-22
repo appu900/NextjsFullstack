@@ -6,9 +6,15 @@ import axios from 'axios';
 import Lottie from "lottie-react";
 import signUpImage from "../../../public/images/chat.png"
 import Image from "next/image";
+import { useEffect } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export default function signupPage(){
+
+    const router = useRouter();
+    const [buttonDisabled,setButtonDisabled] = React.useState(false);
+    const[loding,setLoding] = React.useState(false)
     const[user,setUser] = React.useState({
         email:"",
         password:"",
@@ -17,7 +23,35 @@ export default function signupPage(){
 
     const onSignup = async () =>{
 
+      try {
+        setLoding(true);
+        const response = await axios.post("/api/users/signup",user)
+        console.log("signup sucess", response.data)
+        router.push("/login")
+        
+      } catch (err:any) {
+         
+        toast.error(err.message)
+        console.log("signup failed");
+
+        
+      }
+      finally{
+
+        setLoding(false);
+
+      }
+
     }
+
+    useEffect(()=>{
+        if(user.email.length > 0 && user.password.length > 0 && user.username.length > 0 ){
+          setButtonDisabled(false);
+        }
+        else{
+          setButtonDisabled(true);
+        }
+    },[user]);
 
     return(
         <div className="min-h-screen w-full bg-white flex items-center justify-center ">
@@ -58,7 +92,7 @@ export default function signupPage(){
                 <button 
                 onClick={onSignup}
                 className="w-full h-[46px] bg-indigo-600 rounded-md text-white active:scale-95"
-                >Create Account</button>
+                >{buttonDisabled ? "No signup":"Create Account"}</button>
             </div>
             
                 <Link  href="/login" className="text-left text-sm   mt-6"> Already have account <span className="text-indigo-600">login here</span></Link>

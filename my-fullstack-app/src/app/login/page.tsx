@@ -6,24 +6,64 @@ import axios from 'axios';
 import Lottie from "lottie-react";
 import signInImage from "../../../public/images/signin.png"
 import Image from "next/image";
+import { useEffect } from "react";
+import toast, { Toaster } from 'react-hot-toast';
+
+
 
 
 export default function LoginPage(){
+
+    const router = useRouter();
+    const [buttonDisabled,setButtonDisabled] = React.useState(false);
+    const[loding,setLoding] = React.useState(false)
+
     const[user,setUser] = React.useState({
         email:"",
         password:"",
         
     })
 
+    
+
     const onLogin = async () =>{
 
+      try {
+        
+
+        setLoding(true);
+        const response = await axios.post("api/users/login",user);
+        console.log(response.data + "login sucesss")
+        toast.success("login done properly");
+        router.push("/profile")
+        
+
+        
+      } catch (err:any) {
+          console.log("login failed " + err.message)
+          toast.error(err.message)
+      }
+      finally{
+        setLoding(false);
+      }
+
     }
+
+    useEffect(()=>{
+        if(user.email.length > 0 && user.password.length > 0){
+             setButtonDisabled(false)
+        }
+        else{
+          setButtonDisabled(true);
+        }
+    },[user])
 
     return(
         <div className="min-h-screen w-full bg-white flex items-center justify-center ">
           <div className="flex flex-col w-[50%] h-full rounded-md px-48  ">
 
             <div className=" w-full text-left font-semibold mt-10 text-xl ">
+              <p>{loding ? "processing" : "enter data"}</p>
               <p><span className="text-indigo-600">Login</span> to Your account here</p>
             </div>
 
