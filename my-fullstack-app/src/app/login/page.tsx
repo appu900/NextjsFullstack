@@ -42,6 +42,10 @@ export default function LoginPage(){
       } catch (err:any) {
           console.log("login failed " + err.message)
           toast.error(err.message)
+          setUser({
+            email:"",
+            password:""
+          })
       }
       finally{
         setLoding(false);

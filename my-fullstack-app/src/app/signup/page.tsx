@@ -55,6 +55,7 @@ export default function signupPage(){
 
     return(
         <div className="min-h-screen w-full bg-white flex items-center justify-center ">
+          
           <div className="flex flex-col w-[50%] h-full rounded-md px-48  ">
 
             <div className=" w-full text-left font-semibold mt-10 text-xl ">

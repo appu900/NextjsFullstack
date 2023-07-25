@@ -20,21 +20,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    //    check passoword is correct
+    //!    check passoword is correct
 
     const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {
       return NextResponse.json({ error: "invalid password" }, { status: 400 });
     }
 
-    //   craete a token data
+    // !  craete a token data which will be saved in users browser
+
     const tokenData = {
       id: user._id,
       username:user.username,
       email:user.email
     };
 
-    // create a token
+    //! create a token
 
     const token = await jwt.sign(tokenData,process.env.TOKEN_SECRETE!,{expiresIn:"1d"})
     const response = NextResponse.json({
@@ -45,7 +46,7 @@ export async function POST(request: NextRequest) {
     return response;
 
 
-
+    //? hello 
 
 
 
